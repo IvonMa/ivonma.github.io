@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript,ES6," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="JS的组成部分 ECMAScript，JS的核心，里面固定了JS的语法和词法目前常用的是ES5.1版本，ES6正在慢慢地被广泛使用。浏览器兼容性：基本全兼容  DOM(Document Object Model) ：文档对象模型，主要用来跟页面打交道浏览器兼容性：大部分兼容，不兼容可处理  BOM(Browser Ob">
+<meta name="keywords" content="JavaScript,ES6">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6新特性入门">
+<meta property="og:url" content="http://ivon.top/2017/08/15/ES6新特性入门/index.html">
+<meta property="og:site_name" content="Ivon&#39;s Notebook">
+<meta property="og:description" content="JS的组成部分 ECMAScript，JS的核心，里面固定了JS的语法和词法目前常用的是ES5.1版本，ES6正在慢慢地被广泛使用。浏览器兼容性：基本全兼容  DOM(Document Object Model) ：文档对象模型，主要用来跟页面打交道浏览器兼容性：大部分兼容，不兼容可处理  BOM(Browser Object Model) ：浏览器对象模型，主要用来跟浏览器打交道 例子：aler">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-29T12:54:35.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ES6新特性入门">
+<meta name="twitter:description" content="JS的组成部分 ECMAScript，JS的核心，里面固定了JS的语法和词法目前常用的是ES5.1版本，ES6正在慢慢地被广泛使用。浏览器兼容性：基本全兼容  DOM(Document Object Model) ：文档对象模型，主要用来跟页面打交道浏览器兼容性：大部分兼容，不兼容可处理  BOM(Browser Object Model) ：浏览器对象模型，主要用来跟浏览器打交道 例子：aler">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'UVBQP5J09B',
+      apiKey: 'c52c00bfaff064f97caf9a6c225af449',
+      indexName: 'ivon',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ivon.top/2017/08/15/ES6新特性入门/"/>
+
+
+
+
+
+  <title>ES6新特性入门 | Ivon's Notebook</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ivon's Notebook</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ivon.top/2017/08/15/ES6新特性入门/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ivon Ma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ivon's Notebook">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ES6新特性入门</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-15T11:05:53+08:00">
+                2017-08-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/08/15/ES6新特性入门/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2017/08/15/ES6新特性入门/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="JS的组成部分"><a href="#JS的组成部分" class="headerlink" title="JS的组成部分"></a>JS的组成部分</h1><ol>
+<li><p>ECMAScript，JS的核心，里面固定了JS的语法和词法<br>目前常用的是ES5.1版本，ES6正在慢慢地被广泛使用。<br>浏览器兼容性：基本全兼容</p>
+</li>
+<li><p>DOM(Document Object Model) ：文档对象模型，主要用来跟页面打交道<br>浏览器兼容性：大部分兼容，不兼容可处理</p>
+</li>
+<li><p>BOM(Browser Object Model) ：浏览器对象模型，主要用来跟浏览器打交道</p>
+<p>例子：alert()，window.navigator.userAgent，window.open()等浏览器兼容性：不同浏览器表现不同，且不兼容不能处理</p>
+</li>
+</ol>
+<h1 id="ES6目前的兼容情况"><a href="#ES6目前的兼容情况" class="headerlink" title="ES6目前的兼容情况"></a>ES6目前的兼容情况</h1><p>目前只支持高版本浏览器。<br>不兼容可以通过编译工具将ES6语法转成ES5代码来解决，从而在现有环境执行。但并不是所有代码都能转换，例如const就不行。</p>
+<h2 id="解决ES6的浏览器兼容性问题：编译工具"><a href="#解决ES6的浏览器兼容性问题：编译工具" class="headerlink" title="解决ES6的浏览器兼容性问题：编译工具"></a>解决ES6的浏览器兼容性问题：编译工具</h2><h3 id="种类"><a href="#种类" class="headerlink" title="种类"></a>种类</h3><ol>
+<li><p>Babel</p>
+<p>一个广泛使用的ES6转码器，可以将ES6语法编译成ES5语法</p>
+</li>
+<li><p>traceur</p>
+<p>由谷歌开发的编译器（支持高级浏览器）。</p>
+</li>
+</ol>
+<h3 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h3><ul>
+<li>高级浏览器大多支持ES6，但如果需要考虑低版本浏览器兼容性问题，就需要引入。</li>
+<li>移动端浏览器基本上都支持ES6.</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"traceur.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"bootstrap.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span><span class="comment">&lt;!--traceur的加载器--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"module"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>上述代码的说明：<ul>
+<li>bootstrap.js是traceur的加载器，与那个前端框架不是一回事儿</li>
+<li>type=”module“ 是提供给浏览器的标识</li>
+</ul>
+</li>
+</ul>
+<h1 id="ES6新特性"><a href="#ES6新特性" class="headerlink" title="ES6新特性"></a>ES6新特性</h1><h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><p>使用let定义变量:<code>let a = 0;</code></p>
+<ul>
+<li>重复定义会报错</li>
+<li>具有块级作用域</li>
+</ul>
+<p>可以定义常量：使用const：<code>const PI = Math.PI;</code></p>
+<ul>
+<li>重复定义会报错</li>
+<li>具有块级作用域</li>
+<li>修改常量的值会报错</li>
+</ul>
+<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><h3 id="新增的方法"><a href="#新增的方法" class="headerlink" title="新增的方法"></a>新增的方法</h3><p><code>startsWith(str);</code></p>
+<p>判断当前整个字符串是否以str开头。返回boolean</p>
+<p><code>endsWith(str);</code></p>
+<p>判断当前整个字符串是否以str结尾。返回boolean</p>
+<h3 id="模板字符串："><a href="#模板字符串：" class="headerlink" title="模板字符串："></a>模板字符串：</h3><p>使用反单引号定义`str`</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> str = <span class="string">`str`</span>;</span><br><span class="line"><span class="keyword">let</span> str2 = <span class="string">`str2`</span>;</span><br><span class="line"><span class="keyword">let</span> str3 = <span class="string">`str3`</span>;</span><br><span class="line"><span class="comment">//拼接字符串</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;str&#125;</span>-<span class="subst">$&#123;str2&#125;</span>-<span class="subst">$&#123;str3&#125;</span>`</span>);<span class="comment">//'str-str2-str3'</span></span><br></pre></td></tr></table></figure>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>新增了四个方法：</p>
+<ol>
+<li>map() 映射：根据一定规则对元素进行映射，由一个数组获得另一个数组。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">34</span>,<span class="number">78</span>,<span class="number">88</span>,<span class="number">20</span>];</span><br><span class="line"><span class="keyword">let</span> res = arr.map(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> item &lt; <span class="number">60</span> ? <span class="string">'不及格'</span>,<span class="string">'及格'</span>;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(res);<span class="comment">//['不及格','及格','及格','不及格']</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>reduce()汇总：可以用来做数组的求和及求平均数</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//result:初始为数组第一个元素值，此后为上一次运行return的结果</span></span><br><span class="line"><span class="comment">//item:依次被赋予数组除了第一个元素其他元素的值</span></span><br><span class="line"><span class="comment">//index:item本次的值所在的下标</span></span><br><span class="line">arr.reduce(<span class="function"><span class="keyword">function</span>(<span class="params">result,item,index</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//求和</span></span><br><span class="line">  <span class="keyword">return</span> result + item;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这个函数的运行过程是：result一开始被赋予数组第一个元素的值，而后开始不断的迭代数组，从第二个元素开始，每一次迭代都将下一个元素的值交给item，并将return回去的值作为下一次运行的result参数。有点儿类似递归。由于item被赋予的值是从数组的第二个元素开始，因此index也是从1开始的。</p>
+<ol>
+<li>filter() 过滤</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">arr.filter(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//return true 留下</span></span><br><span class="line">  	<span class="comment">//return false 滤掉</span></span><br><span class="line">        <span class="keyword">return</span> item &gt;=<span class="number">60</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<ol>
+<li>forEach() 遍历</li>
+</ol>
+<p>其实属于ES5，只是大家用得少</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arr.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">item,index</span>)</span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><h3 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;; <span class="comment">//原始写法</span></span><br><span class="line"><span class="keyword">let</span> fn = <span class="function"><span class="params">()</span>=&gt;</span> &#123;&#125;; <span class="comment">//箭头函数写法</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> fn2 = <span class="function"><span class="params">a</span> =&gt;</span>&#123;<span class="built_in">console</span>.log(a)&#125;; <span class="comment">//只有一个参数，可以省略括号</span></span><br><span class="line"><span class="keyword">let</span> fn3 = <span class="function">(<span class="params">a,b</span>) =&gt;</span>&#123;<span class="built_in">console</span>.log(a+b)&#125;;</span><br><span class="line"><span class="comment">//只有一句返回值的函数，return和&#123;&#125;可以省略</span></span><br><span class="line"><span class="keyword">let</span> fn4 = <span class="function">(<span class="params">a,b</span>) =&gt;</span> a+b;</span><br></pre></td></tr></table></figure>
+<h3 id="默认值"><a href="#默认值" class="headerlink" title="默认值"></a>默认值</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置形参的默认值:一般函数</span></span><br><span class="line"><span class="function">function <span class="title">fn</span><span class="params">(a=<span class="number">1</span>,b=<span class="number">2</span>)</span> </span>&#123;</span><br><span class="line">  console.log(a, b);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//设置形参的默认值:箭头函数</span></span><br><span class="line">let fn5 = (a=<span class="number">0</span>,b=<span class="number">0</span>) =&gt;&#123;console.log(a,b)&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="可变参数"><a href="#可变参数" class="headerlink" title="可变参数"></a>可变参数</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//可变参数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">a,b,c,...args</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(a, b, c);</span><br><span class="line">  <span class="built_in">console</span>.log(...args);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="对象直接量"><a href="#对象直接量" class="headerlink" title="对象直接量"></a>对象直接量</h2><h3 id="简化写法"><a href="#简化写法" class="headerlink" title="简化写法"></a>简化写法</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//原始写法</span></span><br><span class="line"><span class="keyword">let</span> o = &#123;</span><br><span class="line">    name:<span class="string">'Jack'</span>,</span><br><span class="line">  	age: <span class="number">20</span>,</span><br><span class="line">  	gender:<span class="string">'male'</span>,</span><br><span class="line">  	sayHello:funciton()&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'hello,I am'</span>+<span class="keyword">this</span>.name);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//简化写法</span></span><br><span class="line"><span class="keyword">let</span> username = <span class="string">'ivon'</span>;</span><br><span class="line"><span class="keyword">let</span> age = <span class="number">20</span>;</span><br><span class="line"><span class="keyword">let</span> user = &#123;</span><br><span class="line">  <span class="comment">//如果key和value相同，可以简写(即username : username的情况)</span></span><br><span class="line">  username,</span><br><span class="line">  age,</span><br><span class="line">  gender:<span class="string">'male'</span>,</span><br><span class="line">  <span class="comment">//函数可以直接写</span></span><br><span class="line">  sayHello()&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'hello,I\'m '</span>+username+<span class="string">',age:'</span>+age);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">user.sayHello();</span><br><span class="line"><span class="built_in">console</span>.log(user.username);</span><br><span class="line"><span class="built_in">console</span>.log(user.age);</span><br></pre></td></tr></table></figure>
+<h2 id="类与继承"><a href="#类与继承" class="headerlink" title="类与继承"></a>类与继承</h2><ul>
+<li>使用class定义类<ul>
+<li>属性写到构造器里面</li>
+<li>方法不需要添加到原型上，直接写在类里面。</li>
+</ul>
+</li>
+<li>使用extends来实现类与类之间的继承</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;<span class="comment">//类</span></span><br><span class="line">  <span class="keyword">constructor</span>(name, age, gender) &#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.age = age;</span><br><span class="line">    <span class="keyword">this</span>.gender = gender;</span><br><span class="line">  &#125;;<span class="comment">//构造函数</span></span><br><span class="line">  sayHello() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'hello,I\'m '</span>+ <span class="keyword">this</span>.name+<span class="string">',age:'</span>+ <span class="keyword">this</span>.age);</span><br><span class="line">  &#125;;<span class="comment">//一般函数</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> p = <span class="keyword">new</span> Person(<span class="string">'Jack'</span>, <span class="number">20</span>, <span class="string">',male'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(p.name);</span><br><span class="line">p.sayHello();</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Worker</span> <span class="keyword">extends</span> <span class="title">Person</span> </span>&#123;<span class="comment">//继承</span></span><br><span class="line">  <span class="keyword">constructor</span>(name, age, gender, job) &#123;</span><br><span class="line">    <span class="keyword">super</span>(name, age, gender);<span class="comment">//调用父类构造函数</span></span><br><span class="line">    <span class="keyword">this</span>.job = job;</span><br><span class="line">  &#125;;<span class="comment">//构造函数</span></span><br><span class="line">  showJob() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'hello,I\'m '</span>+<span class="keyword">this</span>.name+<span class="string">',age:'</span>+ <span class="keyword">this</span>.age);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> w = <span class="keyword">new</span> Worker(<span class="string">'Rose'</span>, <span class="number">18</span>, <span class="string">'femal'</span>, <span class="string">'java'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(w.name);</span><br><span class="line">w.sayHello();</span><br><span class="line">w.showJob();</span><br></pre></td></tr></table></figure>
+<p>这样就不用再处理instance，prototype，constructor这样的问题了。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Would plz spare me a cup of coffee?</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Ivon Ma 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Ivon Ma 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+            <a href="/tags/ES6/" rel="tag"># ES6</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/15/jQuery插件/" rel="next" title="jQuery插件">
+                <i class="fa fa-chevron-left"></i> jQuery插件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/26/IDEA自动重置LanguageLevel和JavaCompiler版本的问题/" rel="prev" title="IDEA自动重置LanguageLevel和JavaCompiler版本的问题">
+                IDEA自动重置LanguageLevel和JavaCompiler版本的问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Ivon Ma" />
+            
+              <p class="site-author-name" itemprop="name">Ivon Ma</p>
+              <p class="site-description motion-element" itemprop="description">How yummy is Vivian's Jiangyoufan!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/IvonMa" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.zhihu.com/people/ma-yun-feng/" target="_blank" title="Zhihu">
+                    
+                      <i class="fa fa-fw fa-heart-o"></i>Zhihu</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:ivonma@126.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JS的组成部分"><span class="nav-number">1.</span> <span class="nav-text">JS的组成部分</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ES6目前的兼容情况"><span class="nav-number">2.</span> <span class="nav-text">ES6目前的兼容情况</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#解决ES6的浏览器兼容性问题：编译工具"><span class="nav-number">2.1.</span> <span class="nav-text">解决ES6的浏览器兼容性问题：编译工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#种类"><span class="nav-number">2.1.1.</span> <span class="nav-text">种类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引入"><span class="nav-number">2.1.2.</span> <span class="nav-text">引入</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ES6新特性"><span class="nav-number">3.</span> <span class="nav-text">ES6新特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#变量"><span class="nav-number">3.1.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串"><span class="nav-number">3.2.</span> <span class="nav-text">字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#新增的方法"><span class="nav-number">3.2.1.</span> <span class="nav-text">新增的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模板字符串："><span class="nav-number">3.2.2.</span> <span class="nav-text">模板字符串：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组"><span class="nav-number">3.3.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-number">3.4.</span> <span class="nav-text">函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#箭头函数"><span class="nav-number">3.4.1.</span> <span class="nav-text">箭头函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#默认值"><span class="nav-number">3.4.2.</span> <span class="nav-text">默认值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可变参数"><span class="nav-number">3.4.3.</span> <span class="nav-text">可变参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象直接量"><span class="nav-number">3.5.</span> <span class="nav-text">对象直接量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简化写法"><span class="nav-number">3.5.1.</span> <span class="nav-text">简化写法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类与继承"><span class="nav-number">3.6.</span> <span class="nav-text">类与继承</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2013 &mdash; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ivon Ma</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+      <style>
+        a.gitment-editor-footer-tip { display: none; }
+        .gitment-container.gitment-footer-container { display: none; }
+      </style>
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'IvonMa',
+            repo: 'ivonma.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'd61c00dc8d0f99d82c36e47096dedf79a1f47cb6',
+            
+                client_id: 'ac63a706f554739bbcaa'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
