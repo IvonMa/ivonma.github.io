@@ -740,6 +740,12 @@
     
 
     
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
 
   </div>
 
@@ -939,6 +945,18 @@
 
   <script>
     
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleCenter";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,Twitter,,Facebook,Tumblr,Evernote";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
     
   </script>
 
