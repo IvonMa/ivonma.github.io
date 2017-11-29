@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,构建工具,Gradle,架构," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="简介 与Maven相同的是，Gradle本身只提供构建项目的框架，真正起作用的是plugin。构建Java项目或打war包等，都是通过Plugin实现的。  与Maven不同，Gradle不提供内建的生命周期管理。只是java Plugin向Project中添加了许多Task，而Task依次执行。  本身的领域对象主要">
+<meta name="keywords" content="Java,构建工具,Gradle,架构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gradle入门">
+<meta property="og:url" content="http://ivon.top/2017/10/27/Gradle入门/index.html">
+<meta property="og:site_name" content="Ivon&#39;s Notebook">
+<meta property="og:description" content="简介 与Maven相同的是，Gradle本身只提供构建项目的框架，真正起作用的是plugin。构建Java项目或打war包等，都是通过Plugin实现的。  与Maven不同，Gradle不提供内建的生命周期管理。只是java Plugin向Project中添加了许多Task，而Task依次执行。  本身的领域对象主要有Project和Task。  语法使用基于groovy的DSL。 ​   领域">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-29T05:27:42.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Gradle入门">
+<meta name="twitter:description" content="简介 与Maven相同的是，Gradle本身只提供构建项目的框架，真正起作用的是plugin。构建Java项目或打war包等，都是通过Plugin实现的。  与Maven不同，Gradle不提供内建的生命周期管理。只是java Plugin向Project中添加了许多Task，而Task依次执行。  本身的领域对象主要有Project和Task。  语法使用基于groovy的DSL。 ​   领域">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'UVBQP5J09B',
+      apiKey: 'c52c00bfaff064f97caf9a6c225af449',
+      indexName: 'ivon',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ivon.top/2017/10/27/Gradle入门/"/>
+
+
+
+
+
+  <title>Gradle入门 | Ivon's Notebook</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ivon's Notebook</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ivon.top/2017/10/27/Gradle入门/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ivon Ma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ivon's Notebook">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Gradle入门</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-27T15:40:16+08:00">
+                2017-10-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/后端/" itemprop="url" rel="index">
+                    <span itemprop="name">后端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/10/27/Gradle入门/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2017/10/27/Gradle入门/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><ul>
+<li><p>与Maven相同的是，Gradle本身只提供构建项目的框架，真正起作用的是plugin。构建Java项目或打war包等，都是通过Plugin实现的。</p>
+</li>
+<li><p>与Maven不同，Gradle不提供内建的生命周期管理。只是java Plugin向Project中添加了许多Task，而Task依次执行。</p>
+</li>
+<li><p>本身的领域对象主要有Project和Task。</p>
+</li>
+<li><p>语法使用基于groovy的DSL。</p>
+<p>​</p>
+</li>
+</ul>
+<h1 id="领域对象"><a href="#领域对象" class="headerlink" title="领域对象"></a>领域对象</h1><h4 id="Project："><a href="#Project：" class="headerlink" title="Project："></a>Project：</h4><ul>
+<li>Project为Task提供了执行上下文，所有的Plugin要么向Project中添加用于配置的Property，要么向Project中添加不同的Task</li>
+</ul>
+<h4 id="Task："><a href="#Task：" class="headerlink" title="Task："></a>Task：</h4><ul>
+<li>一个Task表示一个逻辑上较为独立的执行过程，比如编译Java源代码，拷贝文件，打包Jar文件，甚至可以是执行一个系统命令或者调用Ant。另外，一个Task可以读取和设置Project的Property以完成特定的操作。</li>
+<li>task关键字其实本身也是一个属于Project的方法调用。</li>
+<li>对于每一个Task，Gradle都会在Project中创建一个同名的Property，所以我们可以将该Task当作Property来访问。</li>
+</ul>
+<h5 id="Task创建方式："><a href="#Task创建方式：" class="headerlink" title="Task创建方式："></a>Task创建方式：</h5><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.调用Project的task()方法创建Task:	“&lt;&lt;”表示追加的意思，即向hello中加入执行过程。</span></span><br><span class="line">task helloWorld &lt;&lt; &#123;</span><br><span class="line">   println <span class="string">"Hello World!"</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//1.1.doLast等同于“&lt;&lt;”：</span></span><br><span class="line">task hello2 &#123;</span><br><span class="line">   doLast &#123;</span><br><span class="line">      println <span class="string">'hello2'</span>&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//1.2.doFirst：向Task的最前面加入执行过程：</span></span><br><span class="line">task hello3 &#123;</span><br><span class="line">   doFirst &#123;</span><br><span class="line">      println <span class="string">'hello3'</span>&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="Task之间的依赖："><a href="#Task之间的依赖：" class="headerlink" title="Task之间的依赖："></a>Task之间的依赖：</h5><ul>
+<li><p>Task之间可以存在依赖关系。在执行的时候会先执行被依赖的Task。</p>
+<ul>
+<li><p>声明方式一：定义一个Task的时候</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">task taskA(<span class="string">dependsOn:</span> taskB) &#123;</span><br><span class="line">   <span class="comment">//do something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>声明方式二：直接声明依赖</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">taskA.dependsOn taskB</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="Task的”类型”："><a href="#Task的”类型”：" class="headerlink" title="Task的”类型”："></a>Task的”类型”：</h5><ul>
+<li>具有“类型”的概念，如Copy。如果不声明类型，则类型为DefaultTask。<br>示例：<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//用于文件拷贝的Task</span></span><br><span class="line"><span class="comment">//将xml文件夹中的所有内容拷贝到destination文件夹中。这里的两个文件夹都是相对于当前Project而言的，即build.gradle文件所在的目录</span></span><br><span class="line">task copyFile(<span class="string">type:</span> Copy) &#123;</span><br><span class="line">   from <span class="string">'xml'</span></span><br><span class="line">   into <span class="string">'destination'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="内置Task："><a href="#内置Task：" class="headerlink" title="内置Task："></a>内置Task：</h5><ul>
+<li><p>Gradle在默认情况下为我们提供了几个常用的Task，比如查看Project的Properties、显示当前Project中定义的所有Task等。</p>
+<ul>
+<li>查看Project中可以执行的Task: <code>gradle tasks</code> 或 <code>gradle tasks --all</code></li>
+<li>查看Project中具有的Properties: <code>gradle properties</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="Properties"><a href="#Properties" class="headerlink" title="Properties:"></a>Properties:</h4><ul>
+<li><p>自带巨多，以下列出常用的：</p>
+<ul>
+<li>allprojects：所有的Project，即根项目和子项目</li>
+<li>subprojects：子项目</li>
+<li>buildDir: 构建结果的输出目录</li>
+<li>rootDir：根项目路径</li>
+<li>rootProject：根项目</li>
+<li>projectDir： 项目目录（根或子各自的）</li>
+</ul>
+</li>
+<li><p>Task也可以具有Property，且可以在声明Task之后设置</p>
+<p>示例：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.我们可以在定义Task的时候对Property进行配置：</span></span><br><span class="line">task hello7 &lt;&lt; &#123;</span><br><span class="line">   description = <span class="string">"this is hello7"</span> </span><br><span class="line">   println description</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.我们还可以通过闭包的方式来配置一个已有的Task：</span></span><br><span class="line">	<span class="comment">//其实Gradle会创建一个同名的方法，该方法接受一个闭包</span></span><br><span class="line">task hello8 &lt;&lt; &#123;</span><br><span class="line">println description</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hello8 &#123;</span><br><span class="line">description = <span class="string">"this is hello8"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//3.还可以通过调用Task的configure()方法完成Property的设置:</span></span><br><span class="line">task hello9 &lt;&lt; &#123;</span><br><span class="line">   println description</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hello9.configure &#123;</span><br><span class="line">   description = <span class="string">"this is hello9"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="定义property"><a href="#定义property" class="headerlink" title="定义property"></a>定义property</h5><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//方式1</span></span><br><span class="line">ext.property1 = <span class="string">"this is property1"</span></span><br><span class="line"><span class="comment">//方式2</span></span><br><span class="line">ext &#123;</span><br><span class="line">   property2 = <span class="string">"this is property2"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="配置文件："><a href="#配置文件：" class="headerlink" title="配置文件："></a>配置文件：</h1><h4 id="build-gradle"><a href="#build-gradle" class="headerlink" title="build.gradle"></a>build.gradle</h4><ul>
+<li>基本的配置文件</li>
+</ul>
+<h4 id="settings-gradle"><a href="#settings-gradle" class="headerlink" title="settings.gradle"></a>settings.gradle</h4><ul>
+<li>如果是聚合项目，那么根项目下除了要有build.gradle以外，在同级目录下还需要有settings.gradle。</li>
+<li>该文件通过include来定义子模块</li>
+</ul>
+<h2 id="项目目录结构："><a href="#项目目录结构：" class="headerlink" title="项目目录结构："></a>项目目录结构：</h2><ul>
+<li>在默认情况下，Gradle采用了与Maven相同的Java项目目录结</li>
+</ul>
+<h4 id="source-set"><a href="#source-set" class="headerlink" title="source set:"></a>source set:</h4><ul>
+<li><p>Gradle独有的概念。例如默认目录结构下，Gradle实际上会创建两个source set，一个main，一个test</p>
+</li>
+<li><p>注意它是一个抽象概念，与文件夹名字无关。</p>
+</li>
+<li><p>可以利用它来自定义目录结构，如下：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sourceSets &#123;</span><br><span class="line">   main &#123;</span><br><span class="line">      java &#123;</span><br><span class="line">         srcDir <span class="string">'java-sources'</span></span><br><span class="line">      &#125;</span><br><span class="line">      resources &#123;</span><br><span class="line">         srcDir <span class="string">'resources'</span></span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可以创建新的source set。注意需要添加依赖以及修改编译文件的输出目录。</p>
+</li>
+<li><p>Gradle会自动地为每一个新创建的source set创建相应的Task，创建规律为：对于名为mySourceSet的source set，Gradle将为其创建compile<mysourceset>Java、process<mysourceset>Resources和<mysourceset>Classes这3个Task。例如为名为api的source set创建的Task名为apiClasses。</mysourceset></mysourceset></mysourceset></p>
+<ul>
+<li>特别地，main的Task名中都去掉了’main’，如compileJava。</li>
+</ul>
+</li>
+</ul>
+  <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//step1:创建一个名为api的source set用来存放接口,内部文件结构使用默认(java &amp; resources)</span></span><br><span class="line">sourceSets &#123;</span><br><span class="line">   api</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//step2:让编译main中Java源文件的Task依赖于api中的Task</span></span><br><span class="line">classes.dependsOn apiClasses</span><br><span class="line"></span><br><span class="line"><span class="comment">//step3:将api编译生成的class文件放在main的classpath下</span></span><br><span class="line">sourceSets &#123;</span><br><span class="line">   main &#123;</span><br><span class="line">      compileClasspath = compileClasspath + files(api.output.classesDir)</span><br><span class="line">   &#125;</span><br><span class="line">   test &#123;</span><br><span class="line">      runtimeClasspath = runtimeClasspath + files(api.output.classesDir)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>  ​</p>
+<h2 id="java-Plugin"><a href="#java-Plugin" class="headerlink" title="java Plugin"></a>java Plugin</h2><ul>
+<li>和其他Plugin一样，java Plugin并没有什么特别的地方，只是向Project中引入了多个Task和Property。</li>
+<li>它在项目中引入了构建生命周期的概念，就像Maven一样。</li>
+</ul>
+<h1 id="项目依赖管理："><a href="#项目依赖管理：" class="headerlink" title="项目依赖管理："></a>项目依赖管理：</h1><h3 id="第三方类库依赖："><a href="#第三方类库依赖：" class="headerlink" title="第三方类库依赖："></a>第三方类库依赖：</h3><h6 id="配置仓库："><a href="#配置仓库：" class="headerlink" title="配置仓库："></a>配置仓库：</h6><ul>
+<li>可以配置多个，按顺序自上至下查找</li>
+<li>依赖冲突时，默认选择版本更新的<ul>
+<li>使用resolutionStrategy可以修改依赖冲突的处理策略</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">repositories &#123;</span><br><span class="line">  mavenLocal()</span><br><span class="line">  <span class="comment">//阿里云镜像仓库</span></span><br><span class="line">  maven &#123; url <span class="string">"http://maven.aliyun.com/nexus/content/groups/public"</span> &#125;</span><br><span class="line">  mavenCentral()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="从本地或远程仓库获取依赖："><a href="#从本地或远程仓库获取依赖：" class="headerlink" title="从本地或远程仓库获取依赖："></a>从本地或远程仓库获取依赖：</h6><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">   compile <span class="string">'org.slf4j:slf4j-log4j12:1.7.2'</span></span><br><span class="line">   testCompile <span class="string">'junit:junit:4.8.2'</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">//修改依赖冲突处理策略：对某个依赖强制使用某版本。</span></span><br><span class="line">   configurations.compile &#123;</span><br><span class="line">     resolutionStrategy &#123;</span><br><span class="line">       force <span class="string">'org.apache.httpcomponents:httpcore:4.4.3'</span></span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="从本地文件系统获取依赖："><a href="#从本地文件系统获取依赖：" class="headerlink" title="从本地文件系统获取依赖："></a>从本地文件系统获取依赖：</h6><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">   compile files(<span class="string">'spring-core.jar'</span>, <span class="string">'spring-aap.jar'</span>)</span><br><span class="line">   compile fileTree(<span class="string">dir:</span> <span class="string">'deps'</span>, <span class="string">include:</span> <span class="string">'*.jar'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="聚合项目模块间的依赖："><a href="#聚合项目模块间的依赖：" class="headerlink" title="聚合项目模块间的依赖："></a>聚合项目模块间的依赖：</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">   compile project(<span class="string">':ProjectB'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="对依赖进行分组："><a href="#对依赖进行分组：" class="headerlink" title="对依赖进行分组："></a>对依赖进行分组：</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义依赖分组：一个依赖分组即为一个configurations</span></span><br><span class="line">configurations &#123;</span><br><span class="line">   myDependency</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//为该分组添加依赖</span></span><br><span class="line">dependencies &#123;</span><br><span class="line">   myDependency <span class="string">'org.apache.commons:commons-lang3:3.0'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>compile，testCompile等其实都是默认的configurations</li>
+</ul>
+<p>Gradle的Project之间的依赖关系是基于Task的，而不是整个Project的。</p>
+<p>如：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">task taskA &lt;&lt; &#123;</span><br><span class="line">   println <span class="string">'this is taskA from project 1'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">task taskB &lt;&lt; &#123;</span><br><span class="line">   println <span class="string">'this is taskB from project 1'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">taskA.dependsOn taskB</span><br></pre></td></tr></table></figure>
+<p>执行<code>gradle taskA</code>后输出</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">:sub-<span class="string">project1:</span>taskB</span><br><span class="line"><span class="keyword">this</span> is taskB from project <span class="number">2</span></span><br><span class="line">:sub-<span class="string">project1:</span>taskA</span><br><span class="line"><span class="keyword">this</span> is taskA from project <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h1 id="聚合项目"><a href="#聚合项目" class="headerlink" title="聚合项目"></a>聚合项目</h1><h3 id="构建文件："><a href="#构建文件：" class="headerlink" title="构建文件："></a>构建文件：</h3><ul>
+<li>根项目与每个子项目均有各自的build.gradle文件。</li>
+<li>根项目的build.gradle中可以定义全部模块的相关信息。</li>
+<li>根项目下额外提供settings.gradle文件，用以定义聚合配置。</li>
+</ul>
+<p>settings.gradle：</p>
+<p>定义子项目：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">include <span class="string">'sub-project1'</span>, <span class="string">'sub-project2'</span></span><br></pre></td></tr></table></figure>
+<p>根项目的build.gradle:</p>
+<ul>
+<li>可以定义全部模块的相关信息</li>
+<li>理论上其实可以将所有子项目各自的配置均放在根项目的build.gradle中</li>
+</ul>
+<h5 id="针对所有子项目的设置："><a href="#针对所有子项目的设置：" class="headerlink" title="针对所有子项目的设置："></a>针对所有子项目的设置：</h5><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">allprojects &#123;</span><br><span class="line">    apply <span class="string">plugin:</span> <span class="string">'idea'</span></span><br><span class="line"></span><br><span class="line">    task allTask &lt;&lt; &#123;</span><br><span class="line">        println project.name</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="针对子项目的设置："><a href="#针对子项目的设置：" class="headerlink" title="针对子项目的设置："></a>针对子项目的设置：</h5><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">subprojects &#123;</span><br><span class="line">    task subTask &lt;&lt; &#123;</span><br><span class="line">        println project.name</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>针对某个子项目的设置：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">project(<span class="string">':sub-project1'</span>) &#123;</span><br><span class="line">   task forProject1 &lt;&lt; &#123;</span><br><span class="line">      println <span class="string">'for project 1'</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="可以利用groovy语言的特性来对模块进行过滤："><a href="#可以利用groovy语言的特性来对模块进行过滤：" class="headerlink" title="可以利用groovy语言的特性来对模块进行过滤："></a>可以利用groovy语言的特性来对模块进行过滤：</h5><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">configure(allprojects.findAll &#123; it.name.startsWith(<span class="string">'sub'</span>) &#125;) &#123;</span><br><span class="line">   subTask &lt;&lt; &#123;</span><br><span class="line">      println <span class="string">'this is a sub project'</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>## </p>
+<h1 id="其他："><a href="#其他：" class="headerlink" title="其他："></a>其他：</h1><p>BuildScript代码块：</p>
+<ul>
+<li>buildscript中的声明是<strong>gradle脚本自身需要使用的资源</strong>。可以声明的资源包括依赖项、第三方插件、maven仓库地址等。而在build.gradle文件中直接声明的依赖项、仓库地址等信息是项目自身需要的资源。</li>
+<li>radle在执行脚本时，会优先执行buildscript代码块中的内容，然后才会执行剩余的build脚本。</li>
+<li>buildscript代码块中的repositories和dependencies的使用方式与直接在build.gradle文件中的使用方式几乎完全一样。唯一不同之处是在buildscript代码块中可以对dependencies使用classpath声明。该classpath声明说明了在执行其余的build脚本时，class loader可以使用这些你提供的依赖项。</li>
+</ul>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">buildscript &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        mavenLocal()</span><br><span class="line">        mavenCentral()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    dependencies &#123;</span><br><span class="line">        classpath <span class="string">'org.apache.commons:commons-csv:1.0'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><p><a href="http://www.cnblogs.com/davenkin/p/gradle-learning-1.html" target="_blank" rel="noopener">http://www.cnblogs.com/davenkin/p/gradle-learning-1.html</a></p>
+<p><a href="http://blog.jobbole.com/72992/" target="_blank" rel="noopener">http://blog.jobbole.com/72992/</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Would plz spare me a cup of coffee?</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Ivon Ma 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Ivon Ma 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/构建工具/" rel="tag"># 构建工具</a>
+          
+            <a href="/tags/Gradle/" rel="tag"># Gradle</a>
+          
+            <a href="/tags/架构/" rel="tag"># 架构</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/26/macOS 设置同时访问内外网/" rel="next" title="macOS设置同时访问内外网">
+                <i class="fa fa-chevron-left"></i> macOS设置同时访问内外网
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/02/IDEA初学者会遇到的一些小坑/" rel="prev" title="IDEA初学者会遇到的一些小坑">
+                IDEA初学者会遇到的一些小坑 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Ivon Ma" />
+            
+              <p class="site-author-name" itemprop="name">Ivon Ma</p>
+              <p class="site-description motion-element" itemprop="description">How yummy is Vivian's Jiangyoufan!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/IvonMa" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.zhihu.com/people/ma-yun-feng/" target="_blank" title="Zhihu">
+                    
+                      <i class="fa fa-fw fa-heart-o"></i>Zhihu</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:ivonma@126.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#领域对象"><span class="nav-number">2.</span> <span class="nav-text">领域对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Project："><span class="nav-number">2.0.0.1.</span> <span class="nav-text">Project：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Task："><span class="nav-number">2.0.0.2.</span> <span class="nav-text">Task：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Task创建方式："><span class="nav-number">2.0.0.2.1.</span> <span class="nav-text">Task创建方式：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Task之间的依赖："><span class="nav-number">2.0.0.2.2.</span> <span class="nav-text">Task之间的依赖：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Task的”类型”："><span class="nav-number">2.0.0.2.3.</span> <span class="nav-text">Task的”类型”：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#内置Task："><span class="nav-number">2.0.0.2.4.</span> <span class="nav-text">内置Task：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Properties"><span class="nav-number">2.0.0.3.</span> <span class="nav-text">Properties:</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#定义property"><span class="nav-number">2.0.0.3.1.</span> <span class="nav-text">定义property</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置文件："><span class="nav-number">3.</span> <span class="nav-text">配置文件：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#build-gradle"><span class="nav-number">3.0.0.1.</span> <span class="nav-text">build.gradle</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#settings-gradle"><span class="nav-number">3.0.0.2.</span> <span class="nav-text">settings.gradle</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目目录结构："><span class="nav-number">3.1.</span> <span class="nav-text">项目目录结构：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#source-set"><span class="nav-number">3.1.0.1.</span> <span class="nav-text">source set:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#java-Plugin"><span class="nav-number">3.2.</span> <span class="nav-text">java Plugin</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#项目依赖管理："><span class="nav-number">4.</span> <span class="nav-text">项目依赖管理：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第三方类库依赖："><span class="nav-number">4.0.1.</span> <span class="nav-text">第三方类库依赖：</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#配置仓库："><span class="nav-number">4.0.1.0.0.1.</span> <span class="nav-text">配置仓库：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#从本地或远程仓库获取依赖："><span class="nav-number">4.0.1.0.0.2.</span> <span class="nav-text">从本地或远程仓库获取依赖：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#从本地文件系统获取依赖："><span class="nav-number">4.0.1.0.0.3.</span> <span class="nav-text">从本地文件系统获取依赖：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#聚合项目模块间的依赖："><span class="nav-number">4.0.2.</span> <span class="nav-text">聚合项目模块间的依赖：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对依赖进行分组："><span class="nav-number">4.0.3.</span> <span class="nav-text">对依赖进行分组：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#聚合项目"><span class="nav-number">5.</span> <span class="nav-text">聚合项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#构建文件："><span class="nav-number">5.0.1.</span> <span class="nav-text">构建文件：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#针对所有子项目的设置："><span class="nav-number">5.0.1.0.1.</span> <span class="nav-text">针对所有子项目的设置：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#针对子项目的设置："><span class="nav-number">5.0.1.0.2.</span> <span class="nav-text">针对子项目的设置：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#可以利用groovy语言的特性来对模块进行过滤："><span class="nav-number">5.0.1.0.3.</span> <span class="nav-text">可以利用groovy语言的特性来对模块进行过滤：</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他："><span class="nav-number">6.</span> <span class="nav-text">其他：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考："><span class="nav-number">7.</span> <span class="nav-text">参考：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2013 &mdash; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ivon Ma</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+      <style>
+        a.gitment-editor-footer-tip { display: none; }
+        .gitment-container.gitment-footer-container { display: none; }
+      </style>
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'IvonMa',
+            repo: 'ivonma.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'd61c00dc8d0f99d82c36e47096dedf79a1f47cb6',
+            
+                client_id: 'ac63a706f554739bbcaa'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
