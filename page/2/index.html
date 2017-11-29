@@ -790,12 +790,6 @@ cxf 是WebService在Java语言中的一种实现框架。
     
 
     
-      <div id="needsharebutton-float">
-        <span class="btn">
-          <i class="fa fa-share-alt" aria-hidden="true"></i>
-        </span>
-      </div>
-    
 
   </div>
 
@@ -967,18 +961,18 @@ cxf 是WebService在Java语言中的一种实现框架。
 
   <script>
     
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
     
-      flOptions = {};
-      
-          flOptions.iconStyle = "box";
-      
-          flOptions.boxForm = "horizontal";
-      
-          flOptions.position = "topRight";
-      
-          flOptions.networks = "Weibo,Wechat,Douban,Twitter,Facebook";
-      
-      new needShareButton('#needsharebutton-float', flOptions);
     
   </script>
 
