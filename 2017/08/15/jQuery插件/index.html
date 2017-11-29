@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript,jQuery,jQueryUI,前端插件," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="jQuery提供了扩展接口，用户可以方便地添加自己的插件。jQuery也具有许多已经开发的独立插件。 jquery_lazyload插件一款延迟加载图片的插件 应用场景：在一些大型网站（特别是视频和电商）中，页面的内容非常多，特别是图片。如果一次性加载完毕，用户体验比较差。 步骤：  引入lazyload的js文件。同">
+<meta name="keywords" content="JavaScript,jQuery,jQueryUI,前端插件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jQuery插件">
+<meta property="og:url" content="http://ivon.top/2017/08/15/jQuery插件/index.html">
+<meta property="og:site_name" content="Ivon&#39;s Notebook">
+<meta property="og:description" content="jQuery提供了扩展接口，用户可以方便地添加自己的插件。jQuery也具有许多已经开发的独立插件。 jquery_lazyload插件一款延迟加载图片的插件 应用场景：在一些大型网站（特别是视频和电商）中，页面的内容非常多，特别是图片。如果一次性加载完毕，用户体验比较差。 步骤：  引入lazyload的js文件。同时还要先引入jQuery。  \中用data-original属性替代src，并">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-28T09:54:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="jQuery插件">
+<meta name="twitter:description" content="jQuery提供了扩展接口，用户可以方便地添加自己的插件。jQuery也具有许多已经开发的独立插件。 jquery_lazyload插件一款延迟加载图片的插件 应用场景：在一些大型网站（特别是视频和电商）中，页面的内容非常多，特别是图片。如果一次性加载完毕，用户体验比较差。 步骤：  引入lazyload的js文件。同时还要先引入jQuery。  \中用data-original属性替代src，并">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'UVBQP5J09B',
+      apiKey: 'c52c00bfaff064f97caf9a6c225af449',
+      indexName: 'ivon',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ivon.top/2017/08/15/jQuery插件/"/>
+
+
+
+
+
+  <title>jQuery插件 | Ivon's Notebook</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ivon's Notebook</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ivon.top/2017/08/15/jQuery插件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ivon Ma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ivon's Notebook">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">jQuery插件</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-15T10:08:01+08:00">
+                2017-08-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/08/15/jQuery插件/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2017/08/15/jQuery插件/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>jQuery提供了扩展接口，用户可以方便地添加自己的插件。jQuery也具有许多已经开发的独立插件。</p>
+<h2 id="jquery-lazyload插件"><a href="#jquery-lazyload插件" class="headerlink" title="jquery_lazyload插件"></a>jquery_lazyload插件</h2><p>一款延迟加载图片的插件</p>
+<h5 id="应用场景："><a href="#应用场景：" class="headerlink" title="应用场景："></a>应用场景：</h5><p>在一些大型网站（特别是视频和电商）中，页面的内容非常多，特别是图片。如果一次性加载完毕，用户体验比较差。</p>
+<p>步骤：</p>
+<ol>
+<li><p>引入lazyload的js文件。同时还要先引入jQuery。</p>
+</li>
+<li><p>\<img\>中用data-original属性替代src，并提供width和height属性</img\></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">"lazy"</span> <span class="attr">data-original</span>=<span class="string">"../images/cat/1.jpg"</span> <span class="attr">height</span>=<span class="string">"440"</span> <span class="attr">width</span>=<span class="string">"440"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过jQuery选择器选择要进行懒加载的图片</p>
+<p><code>$(&#39;img.lazy&#39;).lazyload();//利用class选择要懒加载的图片</code></p>
+<ul>
+<li>可以给lazyload传参（对象直接量），以实现额外效果，如淡入：<code>{effect:&#39;fadeIn&#39;}</code></li>
+</ul>
+</li>
+</ol>
+<h2 id="jQueryUI插件"><a href="#jQueryUI插件" class="headerlink" title="jQueryUI插件"></a>jQueryUI插件</h2><p>官方提供的插件。</p>
+<p>英文官网：<a href="http://jqueryui.com/" target="_blank" rel="noopener">http://jqueryui.com/</a><br>中文网站：<a href="http://www.jqueryui.org.cn/" target="_blank" rel="noopener">http://www.jqueryui.org.cn/</a><br>菜鸟教程：<a href="http://www.runoob.com/jqueryui/jqueryui-tutorial.html" target="_blank" rel="noopener">http://www.runoob.com/jqueryui/jqueryui-tutorial.html</a></p>
+<ul>
+<li>默认自适应父容器大小</li>
+</ul>
+<h3 id="简单使用："><a href="#简单使用：" class="headerlink" title="简单使用："></a>简单使用：</h3><h5 id="手风琴："><a href="#手风琴：" class="headerlink" title="手风琴："></a>手风琴：</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"js/jquery.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"jqueryui/jquery-ui.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"jqueryui/jquery-ui.css"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"accordion"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">h3</span>&gt;</span>标题1<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span>&gt;</span>我是第一个选项<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">h3</span>&gt;</span>标题2<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span>&gt;</span>我是第二个选项<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">h3</span>&gt;</span>标题3<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span>&gt;</span>我是第三个选项<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">        $("#accordion").accordion();</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="标签页："><a href="#标签页：" class="headerlink" title="标签页："></a>标签页：</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--标签页--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"tabs"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span> = <span class="string">"#tab1"</span>&gt;</span>标签1<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span> = <span class="string">"#tab2"</span>&gt;</span>标签2<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span> = <span class="string">"#tab3"</span>&gt;</span>标签3<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"tab1"</span>&gt;</span>11111<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"tab2"</span>&gt;</span>22222<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"tab3"</span>&gt;</span>33333<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  $('#tabs').tabs();</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="自动补全："><a href="#自动补全：" class="headerlink" title="自动补全："></a>自动补全：</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">id</span>=<span class="string">"autocomplete"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  $("#accordion").accordion();</span></span><br><span class="line"><span class="undefined">  $('#tabs').tabs();</span></span><br><span class="line"><span class="undefined">  var availableTags = [];</span></span><br><span class="line"><span class="undefined">  $("#autocomplete").autocomplete(&#123;</span></span><br><span class="line"><span class="undefined">    source:availableTags</span></span><br><span class="line"><span class="undefined">  &#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>​    <code>$(#text).autocomplete({source:jsonData})</code></p>
+<h5 id="一些其他的优秀插件："><a href="#一些其他的优秀插件：" class="headerlink" title="一些其他的优秀插件："></a>一些其他的优秀插件：</h5><h6 id="fancyBox"><a href="#fancyBox" class="headerlink" title="fancyBox"></a>fancyBox</h6><p>一款弹出框插件<br>官网：<a href="http://fancyapps.com/fancybox/" target="_blank" rel="noopener">http://fancyapps.com/fancybox/</a></p>
+<h6 id="superslide"><a href="#superslide" class="headerlink" title="superslide"></a>superslide</h6><p>官方网站：<a href="http://www.superslide2.com/index.html" target="_blank" rel="noopener">http://www.superslide2.com/index.html</a></p>
+<ul>
+<li>标签切换</li>
+<li>焦点图/轮播图</li>
+<li>图片滚动</li>
+</ul>
+<h6 id="一个插件的综合网站："><a href="#一个插件的综合网站：" class="headerlink" title="一个插件的综合网站："></a>一个插件的综合网站：</h6><p>​    www.jq22.com</p>
+<h2 id="编写自定义jQuery插件"><a href="#编写自定义jQuery插件" class="headerlink" title="编写自定义jQuery插件"></a>编写自定义jQuery插件</h2><p>jQuery，或$，其实指向一个构造函数。$(‘’)选择器选出来的jQuery对象，底层其实new了这个构造函数。</p>
+<p>该构造函数默认给出了一些接口，用于拓展方法。</p>
+<ul>
+<li>$.extend()</li>
+<li>$.fn</li>
+</ul>
+<h3 id="方式一：-extend"><a href="#方式一：-extend" class="headerlink" title="方式一：$.extend()"></a>方式一：$.extend()</h3><p>可以将参数中的属性或方法添加到jQuery构造函数中。</p>
+<p>其实就是循环添加参数的属性们到构造函数。<br>这种方式有点儿类似于Java中的静态函数。不能通过对象调用，只能通过构造函数去调用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//基于构造函数进行拓展</span></span><br><span class="line">$.extend(&#123;</span><br><span class="line">    sayHello:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'hello'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">$.sayHello(); <span class="comment">//通过构造函数调用 正确</span></span><br><span class="line">$(<span class="built_in">document</span>).sayhello(); <span class="comment">//不可以对象调用 报错</span></span><br></pre></td></tr></table></figure>
+<h3 id="方式二：-fn"><a href="#方式二：-fn" class="headerlink" title="方式二：$.fn"></a>方式二：$.fn</h3><p><strong>jQuery.fn 其实就是 jQuery.prototype</strong>，起了个别名而已</p>
+<p>因此 $.fn.xxx = funtion(){} 其实就是jQuery.prototype.sayHello = function(){}</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$.fn.sayhello = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'hello'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样选择器选择到的jQuery对象，也可以调用该方法</p>
+<h4 id="两种方式的比较："><a href="#两种方式的比较：" class="headerlink" title="两种方式的比较："></a>两种方式的比较：</h4><ol>
+<li>$.extend() 是在jQuery对象(构造函数)添加一个静态方法，而$.fn是在jQuery对象的原型上添加方法</li>
+<li>$.extend() 添加的方法不能被jquery选择之后的对象调用，$.fn添加的方法可以被jQuery选择之后的对象调用</li>
+<li>作为全局的方法或者是和选择对象无关的操作，使用$.extend()实现</li>
+<li>需要jQuery对象调用的方法，就用$.fn的方式添加</li>
+</ol>
+<h3 id="一次添加多个方法："><a href="#一次添加多个方法：" class="headerlink" title="一次添加多个方法："></a>一次添加多个方法：</h3><p>$.fn.extend({xx1:function1,xx2:functiion2})</p>
+<p>$.extend({xx1:function1,xx2:functiion2})</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$.fn.extend(&#123; <span class="comment">//prototype也有extend方法</span></span><br><span class="line">    sayHello:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Hello'</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">	sayHello:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Hello'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="案例："><a href="#案例：" class="headerlink" title="案例："></a>案例：</h2><h4 id="添加方法：自定义格式的日志输出"><a href="#添加方法：自定义格式的日志输出" class="headerlink" title="添加方法：自定义格式的日志输出"></a>添加方法：自定义格式的日志输出</h4><p>日志输出显然是不需要jQuery对象调用的，因此用$.extend()就可以</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$.extend(&#123;</span><br><span class="line">  log: <span class="function"><span class="keyword">function</span> (<span class="params">msg</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> date = <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line">    <span class="keyword">var</span> y = date.getFullYear();<span class="comment">//注意是getFullYear()</span></span><br><span class="line">    <span class="keyword">var</span> m = date.getMonth()+<span class="number">1</span>;<span class="comment">//月份从0开始</span></span><br><span class="line">    <span class="keyword">var</span> d = date.getDate(); <span class="comment">//注意是getDate()，不是getDay()，后者是获取周几，从周日/0开始</span></span><br><span class="line">    <span class="keyword">var</span> h = date.getHours();</span><br><span class="line">    <span class="keyword">var</span> mm = date.getMinutes();</span><br><span class="line">    <span class="keyword">var</span> s = date.getSeconds();</span><br><span class="line">    <span class="built_in">console</span>.log(msg + <span class="string">' '</span> + y + <span class="string">'-'</span> + m + <span class="string">'-'</span> + d + <span class="string">' '</span> + h + <span class="string">':'</span> + mm + <span class="string">':'</span> + s);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="添加方法：每个链接显示红色并且显示链接的真实地址"><a href="#添加方法：每个链接显示红色并且显示链接的真实地址" class="headerlink" title="添加方法：每个链接显示红色并且显示链接的真实地址"></a>添加方法：每个链接显示红色并且显示链接的真实地址</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$.fn.extend(&#123;</span><br><span class="line">    toChange:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="comment">//功能：链接显示红色：</span></span><br><span class="line">      <span class="comment">//调用函数的是jQuery对象，因此此处this也是jQuery对象，不需要$(this)</span></span><br><span class="line">        <span class="keyword">this</span>.css(<span class="string">'color'</span>,<span class="string">'red'</span>); </span><br><span class="line">      <span class="comment">//功能：显示链接真实地址：</span></span><br><span class="line">      	<span class="keyword">this</span>.each(</span><br><span class="line">          <span class="comment">//循环里的this则是原声JS对象，需要$(this)</span></span><br><span class="line">          $(<span class="keyword">this</span>).append(<span class="string">' '</span>+$(<span class="keyword">this</span>).attr(<span class="string">'href'</span>));</span><br><span class="line">        );</span><br><span class="line">      <span class="comment">//功能：实现链式调用：方式一</span></span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">$(<span class="string">'ul li a'</span>).toChange();</span><br></pre></td></tr></table></figure>
+<p>实现链式调用方式二：<br>也可以在功能二处return this.each()，因为系统自带的each()也是支持链式调用的，它最后肯定也会返回jQuery对象，因此直接返回回去就好了。</p>
+<h4 id="进阶：允许传入参数，且具有默认值"><a href="#进阶：允许传入参数，且具有默认值" class="headerlink" title="进阶：允许传入参数，且具有默认值"></a>进阶：允许传入参数，且具有默认值</h4><ol>
+<li><p>设置默认值</p>
+</li>
+<li><p>多个参数时，如需合并默认值与参数，可使用：</p>
+<p><code>var setting = $.extend({},defaults,options)</code><br>注意参数顺序不能颠倒。</p>
+</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$.fn.extend(&#123;</span><br><span class="line">    toChange:<span class="function"><span class="keyword">function</span>(<span class="params">options</span>)</span>&#123;</span><br><span class="line">		<span class="comment">//处理参数的默认值--然而其实不写也不会报错</span></span><br><span class="line">      	options = options || &#123;&#125;;</span><br><span class="line">        <span class="keyword">this</span>.css(<span class="string">'color'</span>,<span class="string">'red'</span>); </span><br><span class="line">		<span class="comment">//准备默认值</span></span><br><span class="line">      	<span class="keyword">var</span> defaults = &#123;</span><br><span class="line">            color:<span class="string">'red'</span>,</span><br><span class="line">          	fontSize:<span class="string">'14px'</span></span><br><span class="line">        &#125;;</span><br><span class="line">      	<span class="comment">//该方式会把options合并到defaults中去，也就是说defaults的值会被覆盖掉</span></span><br><span class="line">      	<span class="comment">//var setting = $.extend(defaults,options);</span></span><br><span class="line">      	<span class="comment">//该方式会把options合并到defaults中去，但结果不会覆盖defaults,而是会放到参数一中去。</span></span><br><span class="line">      	<span class="keyword">var</span> setting = $.extend(&#123;&#125;,defaults,options);</span><br><span class="line">      	<span class="keyword">return</span> <span class="keyword">this</span>.each(</span><br><span class="line">          $(<span class="keyword">this</span>).append(<span class="string">' '</span>+$(<span class="keyword">this</span>).attr(<span class="string">'href'</span>));</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">$(<span class="string">'ul li a'</span>).toChange();</span><br></pre></td></tr></table></figure>
+<h3 id="自定义插件的优化："><a href="#自定义插件的优化：" class="headerlink" title="自定义插件的优化："></a>自定义插件的优化：</h3><p>一般来说，会把自定义的插件封装到一个单独的JS文件里，在需要使用的地方引入。</p>
+<p>防止代码污染：<br>​    可以用对象封装，也可以用封闭空间。</p>
+<p>以封闭空间为例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">$</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//自定义格式日志输出</span></span><br><span class="line">    $.extend(&#123;</span><br><span class="line">        log: <span class="function"><span class="keyword">function</span> (<span class="params">msg</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> date = <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line">            <span class="keyword">var</span> y = date.getFullYear();</span><br><span class="line">            <span class="keyword">var</span> m = date.getMonth()+<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">var</span> d = date.getDate();</span><br><span class="line">            <span class="keyword">var</span> h = date.getHours();</span><br><span class="line">            <span class="keyword">var</span> mm = date.getMinutes();</span><br><span class="line">            <span class="keyword">var</span> s = date.getSeconds();</span><br><span class="line">            <span class="built_in">console</span>.log(msg + <span class="string">' '</span> + y + <span class="string">'-'</span> + m + <span class="string">'-'</span> + d + <span class="string">' '</span> + h + <span class="string">':'</span> + mm + <span class="string">':'</span> + s);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;)(<span class="built_in">window</span>.jQuery);</span><br></pre></td></tr></table></figure>
+<p>事实上，jQuery等插件中也是用该方式进行封闭的。只不过jQuery中采用的是以下结构：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  </span><br><span class="line">&#125;());</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Would plz spare me a cup of coffee?</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Ivon Ma 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Ivon Ma 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+            <a href="/tags/jQuery/" rel="tag"># jQuery</a>
+          
+            <a href="/tags/jQueryUI/" rel="tag"># jQueryUI</a>
+          
+            <a href="/tags/前端插件/" rel="tag"># 前端插件</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/08/WebService/" rel="next" title="WebService的使用">
+                <i class="fa fa-chevron-left"></i> WebService的使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/26/IDEA自动重置LanguageLevel和JavaCompiler版本的问题/" rel="prev" title="IDEA自动重置LanguageLevel和JavaCompiler版本的问题">
+                IDEA自动重置LanguageLevel和JavaCompiler版本的问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Ivon Ma" />
+            
+              <p class="site-author-name" itemprop="name">Ivon Ma</p>
+              <p class="site-description motion-element" itemprop="description">How yummy is Vivian's Jiangyoufan!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/IvonMa" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.zhihu.com/people/ma-yun-feng/" target="_blank" title="Zhihu">
+                    
+                      <i class="fa fa-fw fa-heart-o"></i>Zhihu</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:ivonma@126.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#jquery-lazyload插件"><span class="nav-number">1.</span> <span class="nav-text">jquery_lazyload插件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#应用场景："><span class="nav-number">1.0.0.1.</span> <span class="nav-text">应用场景：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jQueryUI插件"><span class="nav-number">2.</span> <span class="nav-text">jQueryUI插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单使用："><span class="nav-number">2.1.</span> <span class="nav-text">简单使用：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#手风琴："><span class="nav-number">2.1.0.1.</span> <span class="nav-text">手风琴：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#标签页："><span class="nav-number">2.1.0.2.</span> <span class="nav-text">标签页：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#自动补全："><span class="nav-number">2.1.0.3.</span> <span class="nav-text">自动补全：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#一些其他的优秀插件："><span class="nav-number">2.1.0.4.</span> <span class="nav-text">一些其他的优秀插件：</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#fancyBox"><span class="nav-number">2.1.0.4.1.</span> <span class="nav-text">fancyBox</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#superslide"><span class="nav-number">2.1.0.4.2.</span> <span class="nav-text">superslide</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#一个插件的综合网站："><span class="nav-number">2.1.0.4.3.</span> <span class="nav-text">一个插件的综合网站：</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编写自定义jQuery插件"><span class="nav-number">3.</span> <span class="nav-text">编写自定义jQuery插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方式一：-extend"><span class="nav-number">3.1.</span> <span class="nav-text">方式一：$.extend()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方式二：-fn"><span class="nav-number">3.2.</span> <span class="nav-text">方式二：$.fn</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#两种方式的比较："><span class="nav-number">3.2.1.</span> <span class="nav-text">两种方式的比较：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一次添加多个方法："><span class="nav-number">3.3.</span> <span class="nav-text">一次添加多个方法：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#案例："><span class="nav-number">4.</span> <span class="nav-text">案例：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#添加方法：自定义格式的日志输出"><span class="nav-number">4.0.1.</span> <span class="nav-text">添加方法：自定义格式的日志输出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加方法：每个链接显示红色并且显示链接的真实地址"><span class="nav-number">4.0.2.</span> <span class="nav-text">添加方法：每个链接显示红色并且显示链接的真实地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进阶：允许传入参数，且具有默认值"><span class="nav-number">4.0.3.</span> <span class="nav-text">进阶：允许传入参数，且具有默认值</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义插件的优化："><span class="nav-number">4.1.</span> <span class="nav-text">自定义插件的优化：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2013 &mdash; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ivon Ma</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+      <style>
+        a.gitment-editor-footer-tip { display: none; }
+        .gitment-container.gitment-footer-container { display: none; }
+      </style>
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'IvonMa',
+            repo: 'ivonma.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'd61c00dc8d0f99d82c36e47096dedf79a1f47cb6',
+            
+                client_id: 'ac63a706f554739bbcaa'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
