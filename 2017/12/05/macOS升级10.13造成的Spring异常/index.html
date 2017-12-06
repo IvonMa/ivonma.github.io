@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Ivon&#39;s Notebook">
 <meta property="og:description" content="问题描述SSM项目中，一段代码放到macOS 10.12系统下可以正常运行，然而放到macOS 10.13系统下则报错Nullpointer Exception。 异常信息123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-06T07:19:15.837Z">
+<meta property="og:updated_time" content="2017-12-06T07:24:45.445Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="macOS升级10.13造成的Spring异常">
 <meta name="twitter:description" content="问题描述SSM项目中，一段代码放到macOS 10.12系统下可以正常运行，然而放到macOS 10.13系统下则报错Nullpointer Exception。 异常信息123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616">
@@ -420,7 +420,7 @@
 <p>macOS 10.13采用了新的文件系统APFS，猜测是该文件系统的<strong>底层排序机制的不同影响了Spring实例化Bean的顺序</strong>。</p>
 <h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><h2 id="网上提供的解决方案"><a href="#网上提供的解决方案" class="headerlink" title="网上提供的解决方案"></a>网上提供的解决方案</h2><p>该答主需要先加载的Bean按文件名排序在其依赖者后面，因此他修改了被依赖的Bean的名字，让它在按文件名排序时可以排到依赖者前面去。</p>
 <p>显然，该解决方案不太适用于我们目前的情况。</p>
-<h2 id="采用的解决方案"><a href="#采用的解决方案" class="headerlink" title="采用的解决方案"></a>采用的解决方案</h2><p>为TokenService上加上<code>@DependOn(&quot;springContext&quot;)</code>注解，声明TokenService的Bean创建依赖于SpringContext的Bean创建，从而改变其加载顺序。问题解决。</p>
+<h2 id="采用的解决方案"><a href="#采用的解决方案" class="headerlink" title="采用的解决方案"></a>采用的解决方案</h2><p>为TokenService上加上<code>@DependsOn(&quot;springContext&quot;)</code>注解，声明TokenService的Bean创建依赖于SpringContext的Bean创建，从而改变其加载顺序。问题解决。</p>
 
       
     </div>
