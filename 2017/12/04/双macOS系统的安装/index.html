@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://gitee.com/ivonma/StaticStorage/raw/master/ShowScreenshots/80634f74448795da6eb96a86591a3db3.png">
 <meta property="og:image" content="https://gitee.com/ivonma/StaticStorage/raw/master/ShowScreenshots/0419f27e19bbfa6585675c61a2ec04a6.png">
-<meta property="og:updated_time" content="2017-12-04T05:28:12.000Z">
+<meta property="og:updated_time" content="2017-12-06T08:18:15.599Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="双macOS系统的安装">
 <meta name="twitter:description" content="分区 打开磁盘工具。如果没有其他系统，那么左侧磁盘列表应该只有一个磁盘。  右击该磁盘，在菜单中点击分区按钮，如下图。   进入分区页面后，点击下侧加号，新建一个分区。随后在右侧的磁盘信息界面中设定该分区的名称、类型及大小。   点击应用，即可生成分区。   安装 到MacAppStore下载系统安装包。 下载完成后，将系统安装到上面分好的新分区即可  切换系统方式一在启动磁盘中设定需要启动的系统">
@@ -428,7 +428,8 @@
 <h2 id="方式二"><a href="#方式二" class="headerlink" title="方式二"></a>方式二</h2><p>在开机时按住option键，进入启动磁盘选择界面。选择需要启动的系统所在的分区。</p>
 <h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><ul>
 <li>两个macOS都是可以访问对方所在磁盘内的文件或启动对方所在磁盘下的应用程序的，并非严格隔离。</li>
-<li>对macOS而言，已经格式化完毕的磁盘可以动态地切出新分区。但<strong>新分区删除后只能归还到它当初来自的母分区</strong>。</li>
+<li>对macOS而言，已经格式化完毕<strong>且装好系统</strong>的磁盘可以动态地切出新分区。但<strong>新分区删除后只能归还到它当初来自的母分区</strong>。</li>
+<li>在归还前，要将子分区的格式抹成母分区的格式类型。</li>
 <li>多个macOS系统可以使用外置存储的同一个分区进行TimeMachine进行备份，但不构成增量备份。</li>
 </ul>
 
